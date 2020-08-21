@@ -1,0 +1,55 @@
+/* style selectors are in the same order as in index.html */
+
+html, body {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    margin: 0; border: 0; padding: 0;
+}
+
+div, canvas {
+    position: absolute;
+    border-radius: 3px;
+    margin: 0; border: 0; padding: 0;
+}
+
+#wrapper {
+    width: 1000px; height: 552px;
+    top: 0; bottom: 0; left: 0; right: 0;
+    margin: auto;
+    border-width: 0;
+}
+
+#messages {
+    width: 195px; height: 550px;
+}
+
+#display {
+    width: 550px; height: 550px;
+    border: 1px solid black;
+    margin-left: 3px;
+    display: inline;
+    left: 197px;
+}
+
+#right-sidebar {
+    width: 245px; height: 552px;
+    border-width: 0;
+    display: inline;
+    right: 0;
+    margin-left: 3px;
+}
+
+#files {
+    width: 243px; height: 272.5px;
+    display: block;
+    margin-bottom: 3px;
+    border: 1px solid black;
+}
+
+#errors {
+    width: 243px; height: 272.5px;
+    display: block;
+    border: 1px solid black;
+    bottom: 0;
+}
