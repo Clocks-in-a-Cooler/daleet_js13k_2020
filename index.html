@@ -13,9 +13,21 @@
             </div>
             <canvas id="display"><!-- your game goes here! --></canvas>
             <div id="right-sidebar">
-                <div id="files"><!-- players can choose to "delete" features here --></div>
+                <div id="files">
+                    <p style="height: 1.5em; text-decoration: underline; margin: 0; margin-left: 2px; margin-top: 2px;">Features</p>
+                    <!-- players can choose to "delete" features here -->
+                    <div id="files-bottom">
+                        <button id="delete-button" disabled="true">Delete!</button>
+                    </div>
+                </div>
                 <div id="errors"><!-- "errors" go here, for "deleted" features --></div>
             </div>
         </div>
+        <script src="helpers.js"></script>
+        <script src="messages.js"></script>
+        <script src="features.js"></script>
+        <script>
+            show_features();
+        </script>
     </body>
 </html>

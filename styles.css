@@ -5,12 +5,37 @@ html, body {
     top: 0; left: 0;
     width: 100%; height: 100%;
     margin: 0; border: 0; padding: 0;
+    font-family: "Arial", "Helvetica", sans-serif;
+    font-size: 14pt;
 }
 
 div, canvas {
     position: absolute;
     border-radius: 3px;
     margin: 0; border: 0; padding: 0;
+}
+
+button {
+    padding: 2px;
+    min-width: 70px;
+    min-height: 45px;
+    border: 1px solid black;
+    border-radius: 3px;
+    background-color: white;
+}
+
+button:hover {
+    color: white;
+    background-color: black;
+}
+
+button:disabled {
+    color: #555555;
+    border-color: #555555;
+}
+
+button:disabled:hover {
+    background-color: white;
 }
 
 #wrapper {
@@ -22,6 +47,15 @@ div, canvas {
 
 #messages {
     width: 195px; height: 550px;
+    overflow: hidden;
+}
+
+.message {
+    position: relative;
+    width: 185px;
+    margin-bottom: 2px;
+    padding: 2px;
+    display: block;
 }
 
 #display {
@@ -45,6 +79,34 @@ div, canvas {
     display: block;
     margin-bottom: 3px;
     border: 1px solid black;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.file {
+    position: relative;
+    width: 240px; height: 1.1em;
+    padding: 2px;
+    margin-left: 2px;
+    overflow: hidden;
+    display: block;
+}
+
+.file:hover {
+    background-color: indianred;
+    color: white;
+}
+
+#files-bottom {
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    border-top: 1px solid black;
+}
+
+#delete-button {
+    position: absolute;
+    top: 2px; right: 2px;
 }
 
 #errors {
@@ -52,4 +114,19 @@ div, canvas {
     display: block;
     border: 1px solid black;
     bottom: 0;
+}
+
+.error {
+    /* mostly stuff from .files rules */
+    position: relative;
+    width: 240px; height: 1.1em;
+    padding: 2px;
+    margin-left: 2px;
+    overflow: hidden;
+    display: block;
+}
+
+.error:hover {
+    background-color: firebrick;
+    color: white;
 }
