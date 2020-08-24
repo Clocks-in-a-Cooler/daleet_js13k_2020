@@ -114,19 +114,18 @@ button:disabled:hover {
     display: block;
     border: 1px solid black;
     bottom: 0;
+    overflow-x: hidden; overflow-y: scroll;
 }
 
 .error {
     /* mostly stuff from .files rules */
     position: relative;
-    width: 240px; height: 1.1em;
+    width: 235px; height: 1.1em;
     padding: 2px;
+    margin-top: 2px;
     margin-left: 2px;
     overflow: hidden;
     display: block;
-}
-
-.error:hover {
-    background-color: firebrick;
+    background-color: indianred;
     color: white;
 }
