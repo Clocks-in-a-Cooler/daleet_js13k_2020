@@ -8,6 +8,9 @@ function create_element(className, content, click_handler) {
     return elt;
 }
 
+// shorter alias for something i'll use a lot
+var getElt = document.getElementById;
+
 class Vector {
     constructor(x, y) {
         this.x = x; this.y = y;
