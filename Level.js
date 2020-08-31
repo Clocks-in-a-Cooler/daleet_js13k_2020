@@ -7,12 +7,22 @@ class Level {
         this.entities = [];
         
         for (var y = 0; y < this.height; y++) {
-            var gridline = plan[y];
+            var plan_gridline = plan[y];
+            var gridline      = [];
             for (var x = 0; x < this.width; x++) {
-                var char  = gridline[x];
-                var Actor = entity_keys
-                // finish
+                var char  = plan_gridline[x];
+                var Actor = entity_keys[char];
+                if (Actor) {
+                    var entity = new Actor(new Vector(x, y), this, char);
+                    if (Actor == Player) {
+                        this.player = entity;
+                    }
+                    this.entities.push(entity);
+                }
+                var tile = tile_keys[char];
+                gridline.push(tile);
             }
+            this.grid.push(gridline);
         }
     }
     
@@ -27,7 +37,7 @@ class Level {
         if (coords.x > this.width || coords.x < 0) {
             return null;
         }
-        return this.grid = [coords.y][coords.x];
+        return this.grid[coords.y][coords.x];
     }
     
     get_obstacles(pos, size) {

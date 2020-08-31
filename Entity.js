@@ -4,7 +4,7 @@ class Entity {
     
     constructor(pos, level, char) {
         this.pos    = pos;
-        this.size   = New Vector(0, 0);
+        this.size   = new Vector(0, 0);
         this.motion = new Vector(0, 0);
         
         this.level  = level;
@@ -29,5 +29,14 @@ class Entity {
         ) {
             this.active = false;
         }
+    }
+    
+    draw(cxt) {
+        // override in child classes, if needed
+        
+        // the default is to draw a blue box
+        cxt.strokeStyle   = "dodgerblue", cxt.lineWidth = 2;
+        var screen_coords = viewport.get_screen_coords(this.pos);
+        cxt.strokeRect(screen_coords.x, screen_coords.y, this.size.x * scale, this.size.y * scale);
     }
 }

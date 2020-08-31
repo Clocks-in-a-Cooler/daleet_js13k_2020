@@ -28,9 +28,23 @@
         <script src="messages.js"></script>
         <script src="features.js"></script>
         <script src="errors.js"></script>
+        <script src="engine.js"></script>
+        <script src="Entity.js"></script>
+        <script src="Bullet.js"></script>
+        <script src="Crush_trap.js"></script>
+        <script src="Monster.js"></script>
+        <script src="Player.js"></script>
+        <script src="Shooting_trap.js"></script>
+        <script src="Spike_trap.js"></script>
+        <script src="Spring_trap.js"></script>
+        <script src="Level.js"></script>
+        <script src="game_levels.js"></script>
         <script>
             load_deleted_features();
             show_features();
+            
+            current_level = new Level(test_level);
+            viewport.update().draw();
         </script>
     </body>
 </html>
