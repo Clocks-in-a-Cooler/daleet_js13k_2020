@@ -17,11 +17,15 @@ var selected = "";
 
 function show_features() {
     for_each_feature(feature => {
-        if (!features_deleted[feature]) {
-            document.getElementById("files").appendChild(create_element("file", feature, () => {
+        if (features_deleted[feature]) {
+            // error!
+            send_error(`feature not found: "${feature}"`, 404);
+            notify(`your score is now ${error_score}`);
+        } else {
+            get_elt("files").appendChild(create_element("file", feature, () => {
                 selected = feature;
-                notify(`selected to delete ${feature}.`);
-                document.getElementById("delete-button").disabled = false;
+                notify(`now selected to delete ${feature}.`);
+                get_elt("delete-button").disabled = false;
             }));
         }
     });
@@ -48,12 +52,12 @@ function reset_features() {
     });
 }
 
-document.getElementById("delete-button").addEventListener("click", () => {
+get_elt("delete-button").addEventListener("click", () => {
     features_deleted[selected] = true;
     save_deleted_features();
 });
 
-document.getElementById("reset-button").addEventListener("click", () => {
+get_elt("reset-button").addEventListener("click", () => {
     reset_features();
     save_deleted_features();
 });

@@ -10,10 +10,13 @@ class Entity {
         this.level  = level;
         this.active = true;
         
+        this.collideable = false;
+        
         // char can be used to encode extra data about the entity, such as the orientation of spike traps
     }
     
     cycle(lapse) {
+        // this might have to be overriden in the Player class...
         this.pos = this.pos.plus(this.motion.times(lapse));
         this.update(lapse);
     }
@@ -39,4 +42,12 @@ class Entity {
         var screen_coords = viewport.get_screen_coords(this.pos);
         cxt.strokeRect(screen_coords.x, screen_coords.y, this.size.x * scale, this.size.y * scale);
     }
+    
+    collision(other) {
+        // override in traps, monster, and bullets...
+        this.active = false;
+    }
 }
+
+Entity.prototype.gravity           = 0.00003; // use for Player and Monster
+Entity.prototype.terminal_velocity = 0.03;

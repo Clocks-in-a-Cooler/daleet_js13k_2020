@@ -132,11 +132,11 @@ button:disabled:hover {
 .error {
     /* mostly stuff from .files rules */
     position: relative;
-    width: 235px; height: 1.1em;
+    width: 230px; min-height: 1.1em;
     padding: 2px;
     margin-top: 2px;
     margin-left: 2px;
-    overflow: hidden;
+    word-wrap: normal;
     display: block;
     background-color: indianred;
     color: white;

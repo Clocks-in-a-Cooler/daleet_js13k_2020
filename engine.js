@@ -1,3 +1,5 @@
+// handles animation, timing, key event handlers, and saving game data that's not the features
+
 var current_level = null;
 
 // i've done this more times than i can count...
@@ -9,12 +11,13 @@ function animate(time) {
     } else {
         lapse = time - last_time;
     }
+    last_time = time;
     
     if (current_level == null) {
         return;
     }
     
-    var max_step = features_deleted["physics"] ? lapse : 25; // BREAK THE GAME
+    var max_step = features_deleted["physics"] ? lapse : 50; // BREAK THE GAME
     
     while (lapse > 0) {
         var step = Math.min(max_step, lapse);
@@ -23,6 +26,7 @@ function animate(time) {
     }
     
     viewport.update().draw();
+    requestAnimationFrame(animate);
 }
 
 function save_progress() {
@@ -68,6 +72,8 @@ var viewport = {
     
     // don't know if this is the most efficient way to do it...but whatever. it's Spidermonkey's problem, not mine
     draw: function() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        
         var left_bound = Math.floor(this.left), right_bound = Math.ceil(this.left + this.width);
         var top_bound  = Math.floor(this.top), bottom_bound = Math.ceil(this.top + this.height);
         
@@ -75,9 +81,25 @@ var viewport = {
             for (var x = left_bound; x <= right_bound; x++) {
                 if (current_level.get_tile(new Vector(x, y))) {
                     var screen_coords = this.get_screen_coords(new Vector(x, y));
-                    // just draw a box for a wall
+                    // we're goin' fancy, boys
+                    // bloatin' the game beyond its limits
                     context.strokeStyle = "black", context.lineWidth = 2;
-                    context.strokeRect(screen_coords.x, screen_coords.y, scale, scale);
+                    if (!current_level.get_tile(new Vector(x, y - 1))) {
+                        context.beginPath();
+                        context.strokeRect(screen_coords.x, screen_coords.y, scale, 0);
+                    }
+                    if (!current_level.get_tile(new Vector(x, y + 1))) {
+                        context.beginPath();
+                        context.strokeRect(screen_coords.x, screen_coords.y + scale, scale, 0);
+                    }
+                    if (!current_level.get_tile(new Vector(x - 1, y))) {
+                        context.beginPath();
+                        context.strokeRect(screen_coords.x, screen_coords.y, 0, scale);
+                    }
+                    if (!current_level.get_tile(new Vector(x + 1, y))) {
+                        context.beginPath();
+                        context.strokeRect(screen_coords.x + scale, screen_coords.y, 0, scale);
+                    }
                 }
             }
         }
@@ -90,3 +112,64 @@ var viewport = {
         return pos.minus(new Vector(this.left, this.top)).times(scale);
     },
 };
+
+var keys = {
+    jump: false, // UP arrow or W
+    down: false, // DOWN arrow or S
+    left: false, // LEFT arrow or A
+    right: false, // RIGHT arrow or D
+    action: false, // SPACE or (right) SHIFT
+}
+
+addEventListener("keydown", evt => {
+    switch (evt.code) {
+        case "KeyW":
+        case "ArrowUp":
+            keys.jump = true;
+            break;
+        case "KeyS":
+        case "ArrowDown":
+            keys.down = true;
+            break;
+        case "KeyA":
+        case "ArrowLeft":
+            keys.left = true;
+            break;
+        case "KeyD":
+        case "ArrowRight":
+            keys.right = true;
+            break;
+        case "Space":
+        case "ShiftRight":
+            keys.action = true;
+            break;
+    }
+});
+
+addEventListener("keyup", evt => {
+    switch (evt.code) {
+        case "KeyW":
+        case "ArrowUp":
+            keys.jump = false;
+            break;
+        case "KeyS":
+        case "ArrowDown":
+            keys.down = false;
+            break;
+        case "KeyA":
+        case "ArrowLeft":
+            keys.left = false;
+            break;
+        case "KeyD":
+        case "ArrowRight":
+            keys.right = false;
+            break;
+        case "Space":
+        case "ShiftRight":
+            keys.action = false;
+            break;
+    }
+});
+
+var did_tutorial  = false;
+var current_level = 0;

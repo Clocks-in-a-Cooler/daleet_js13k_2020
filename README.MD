@@ -6,4 +6,4 @@
 
 A game for JS13K 2020 where...well.
 
-Why am I hard at work implementing these features again?
+Why am I hard at work implementing these features again? Only for the player to del--wh-what am I doing?

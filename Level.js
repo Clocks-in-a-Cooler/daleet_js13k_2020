@@ -26,31 +26,47 @@ class Level {
         }
     }
     
-    cycle(step) {
-        // finish
+    cycle(lapse) {
+        this.entities = this.entities.filter(e => e.active);
+        this.entities.forEach(e => e.cycle(lapse));
     }
     
     get_tile(coords) {
-        if (coords.y > this.height || coords.y < 0) {
+        if (coords.y >= this.height || coords.y < 0) {
             return null;
         }
-        if (coords.x > this.width || coords.x < 0) {
+        if (coords.x >= this.width || coords.x < 0) {
             return null;
         }
         return this.grid[coords.y][coords.x];
     }
     
-    get_obstacles(pos, size) {
-        var x = Math.ceil(pos.x + size.x + 1); var y = Math.ceil(pos.y + size.y + 1);
-        while (y --> pos.y) {
-            while (x --> pos.x) {
-                var tile = this.get_tile(new Vector(x, y)); // GC: "NOOOO you can't just use up all the memory" | program: "haha objects go brrrr"
-                if (tile) {
-                    return tile;
-                }
+    get_tile_obstacles(pos, size) {
+        var left_bound = Math.floor(pos.x), right_bound  = Math.ceil(pos.x + size.x);
+        var top_bound  = Math.floor(pos.y), bottom_bound = Math.ceil(pos.y + size.y);
+        
+        if (left_bound < 0 || right_bound > this.width || top_bound < 0 || bottom_bound > this.height) {
+            return "wall";
+        }
+        
+        for (var y = top_bound; y < bottom_bound; y++) {
+            for (var x = left_bound; x < right_bound; x++) {
+                var tile = this.grid[y][x];
+                if (tile) return tile;
             }
         }
         return null;
+    }
+    
+    get_entities(entity, pos, size) {
+        // gets overlapping entities
+        return this.entities.filter(e => {
+            return e != entity &&
+                e.pos.x + e.size.x > entity.pos.x &&
+                e.pos.x < entity.pos.x + entity.size.x &&
+                e.pos.y + e.size.y > entity.pos.y &&
+                e.pos.y < entity.pos.y + entity.size.y;
+        });
     }
 }
 

@@ -1,7 +1,7 @@
 // helper function to send messages to the player
 // ADR players will recognize this feature
 function notify(message) {
-    var messages    = document.getElementById("messages");
+    var messages    = get_elt("messages");
     var children    = messages.childNodes;
     var message_elt = create_element("message", message); // yes, the same word, in three different situations, three times in the same line of code.
     messages.insertBefore(message_elt, messages.firstChild);
