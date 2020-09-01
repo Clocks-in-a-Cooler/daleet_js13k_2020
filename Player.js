@@ -9,6 +9,7 @@ class Player extends Entity {
         this.fired  = false;
         
         this.vertical_motion = 0;
+        this.double_jump     = true;
     }
     
     move_x(lapse) {
@@ -36,12 +37,16 @@ class Player extends Entity {
     
     move_y(lapse) {
         // first update vertical motion
-        this.vertical_motion += this.gravity * lapse;
-        if (!this.jumped && keys.jump) {
+        if (!this.jumped && keys.jump && (this.vertical_motion == 0 || this.double_jump)) {
             this.jumped = true;
+            if (this.vertical_motion != 0) {
+                this.double_jump = false;
+            }
             this.vertical_motion = -this.jump;
         }
         this.jumped = this.jumped && keys.jump;
+        
+        this.vertical_motion += this.gravity * lapse;
         
         this.vertical_motion = Math.min(this.terminal_velocity, this.vertical_motion);
         
@@ -55,6 +60,9 @@ class Player extends Entity {
         if (!(tile_obstacle || entity_obstacles.some(e => e.collideable))) {
             // if there is no wall and no collideable entity, update to new position
             this.pos = new_pos;
+        } else {
+            this.vertical_motion = 0;
+            this.double_jump     = true;
         }
         
         // cycle through all of the entities we hit...
@@ -75,8 +83,6 @@ class Player extends Entity {
         if (!(tile_obstacle || entity_obstacles.some(e => e.collideable))) {
             // if there is no wall and no collideable entity, update to new position
             this.pos = new_pos;
-        } else {
-            this.vertical_motion = 0;
         }
         
         // cycle through all of the entities we hit...

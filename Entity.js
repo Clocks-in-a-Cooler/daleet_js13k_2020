@@ -10,6 +10,8 @@ class Entity {
         this.level  = level;
         this.active = true;
         
+        this.colour = "dodgerblue";
+        
         this.collideable = false;
         
         // char can be used to encode extra data about the entity, such as the orientation of spike traps
@@ -37,8 +39,8 @@ class Entity {
     draw(cxt) {
         // override in child classes, if needed
         
-        // the default is to draw a blue box
-        cxt.strokeStyle   = "dodgerblue", cxt.lineWidth = 2;
+        // the default is to draw a box
+        cxt.strokeStyle   = this.colour, cxt.lineWidth = 2;
         var screen_coords = viewport.get_screen_coords(this.pos);
         cxt.strokeRect(screen_coords.x, screen_coords.y, this.size.x * scale, this.size.y * scale);
     }
