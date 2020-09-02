@@ -135,6 +135,10 @@ class Player extends Entity {
         ) {
             this.level.lose();
         }
+        
+        if (entity instanceof Crush_trap && entity.dir != null) {
+            this.level.lose(); // a stationary crush trap is safe
+        }
     }
 }
 

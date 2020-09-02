@@ -109,7 +109,7 @@ var entity_keys = {
     "<": Spike_trap,
     "^": Spike_trap,
     "V": Spike_trap,
-    "X": Crush_trap,
+    "X": Crush_trap, // it's an uppercase X
     "_": Spring_trap,
     "M": Monster,
     "«": Shooting_trap, // "«" is ALT + [
