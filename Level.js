@@ -62,10 +62,10 @@ class Level {
         // gets overlapping entities
         return this.entities.filter(e => {
             return e != entity &&
-                e.pos.x + e.size.x > entity.pos.x &&
-                e.pos.x < entity.pos.x + entity.size.x &&
-                e.pos.y + e.size.y > entity.pos.y &&
-                e.pos.y < entity.pos.y + entity.size.y;
+                e.pos.x + e.size.x > pos.x &&
+                e.pos.x < pos.x + entity.size.x &&
+                e.pos.y + e.size.y > pos.y &&
+                e.pos.y < pos.y + entity.size.y;
         });
     }
 }

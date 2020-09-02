@@ -3,13 +3,15 @@ class Bullet extends Entity {
         super(pos, level, char);
         
         this.ignore_gravity = ignore_gravity;
-        this.motion         = motion;
+        this.motion         = motion.times(this.speed);
         this.colour         = colour;
     }
     
     cycle(lapse) {
-        if (this.ignore_gravity) {
+        // if (this.ignore_gravity) {
             this.pos = this.pos.plus(this.motion.times(lapse));
-        }
+        // }
     }
 }
+
+Bullet.prototype.speed = 0.2;

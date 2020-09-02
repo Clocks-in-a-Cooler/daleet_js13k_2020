@@ -19,17 +19,11 @@ class Player extends Entity {
         if (motion > 0) this.dir = "right";
         if (motion < 0) this.dir = "left";
         
-        // check for collisions
-        var tile_obstacle    = this.level.get_tile_obstacles(new_pos, this.size);
-        var entity_obstacles = this.level.get_entities(this, new_pos, this.size);
-        
-        if (!(tile_obstacle || entity_obstacles.some(e => e.collideable))) {
-            // if there is no wall and no collideable entity, update to new position
-            this.pos = new_pos;
+        var data = this.check_collision(new_pos);
+        if (data.collided) {
+            this.double_jump = true;
         }
-        
-        // cycle through all of the entities we hit...
-        entity_obstacles.forEach(e => {
+        data.entities.forEach(e => {
             e.collision(this);
             // i dunno, like...?
         });
@@ -52,21 +46,16 @@ class Player extends Entity {
         
         // generate a new position
         var new_pos = this.pos.plus(new Vector(0, this.vertical_motion * lapse));
+
+        var data = this.check_collision(new_pos);
         
-        // check for any collisions
-        var tile_obstacle    = this.level.get_tile_obstacles(new_pos, this.size);
-        var entity_obstacles = this.level.get_entities(this, new_pos, this.size);
-        
-        if (!(tile_obstacle || entity_obstacles.some(e => e.collideable))) {
-            // if there is no wall and no collideable entity, update to new position
-            this.pos = new_pos;
-        } else {
+        if (data.collided) {
             this.vertical_motion = 0;
             this.double_jump     = true;
         }
         
         // cycle through all of the entities we hit...
-        entity_obstacles.forEach(e => {
+        data.entities.forEach(e => {
             e.collision(this);
             // i dunno, like...?
         });
@@ -76,17 +65,7 @@ class Player extends Entity {
         var motion  = (keys.jump ? -1 : 0) + (keys.down ? 1 : 0);
         var new_pos = this.pos.plus(new Vector(0, lapse * this.speed_x).times(motion));
         
-        // check for collisions
-        var tile_obstacle    = this.level.get_tile_obstacles(new_pos, this.size);
-        var entity_obstacles = this.level.get_entities(this, new_pos, this.size);
-        
-        if (!(tile_obstacle || entity_obstacles.some(e => e.collideable))) {
-            // if there is no wall and no collideable entity, update to new position
-            this.pos = new_pos;
-        }
-        
-        // cycle through all of the entities we hit...
-        entity_obstacles.forEach(e => {
+        this.check_collision(new_pos).entities.forEach(e => {
             e.collision(this);
             // i dunno, like...?
         });

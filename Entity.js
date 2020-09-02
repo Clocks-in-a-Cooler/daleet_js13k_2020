@@ -49,6 +49,24 @@ class Entity {
         // override in traps, monster, and bullets...
         this.active = false;
     }
+    
+    check_collision(new_pos) {
+        var tile_obstacle    = this.level.get_tile_obstacles(new_pos, this.size);
+        var entity_obstacles = this.level.get_entities(this, new_pos, this.size);
+        
+        var collision = true;
+        
+        if (!(tile_obstacle || entity_obstacles.some(e => e.collideable))) {
+            // if there is no wall and no collideable entity, then go to the new position
+            this.pos  = new_pos;
+            collision = false;
+        }
+        
+        return {
+            entities: entity_obstacles,
+            collided: collision,
+        }; // in case the caller wants to do something with the collideable entities
+    }
 }
 
 Entity.prototype.gravity           = 0.00003; // use for Player and Monster
