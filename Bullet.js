@@ -3,6 +3,7 @@ class Bullet extends Entity {
         super(pos, level, char);
         
         this.size = new Vector(0.3, 0.3);
+        this.pos  = this.pos.minus(this.size.times(0.5));
         
         this.ignore_gravity = ignore_gravity;
         this.motion         = motion.times(this.speed);

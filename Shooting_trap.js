@@ -23,8 +23,7 @@ class Shooting_trap extends Entity {
             - the player is at most 10 tiles away, horizontally
             - the player is at the same height, vertically
             - the trap is facing the player
-            - the trap has not shot a bullet in the last 0.75 seconds
-            - random chance, just to drive the player crazy
+            - the trap has not shot a bullet in the last 0.75 seconds (give or take a random interval)
         */
         
         this.last_shot += lapse;
@@ -35,8 +34,7 @@ class Shooting_trap extends Entity {
             Math.abs(pos.x - this.pos.x) < 10 &&
             this.pos.y + this.size.y > pos.y && this.pos.y < pos.y + this.level.player.size.y &&
             Math.sign(pos.x - this.pos.x) == this.dir &&
-            this.last_shot >= this.cooldown &&
-            Math.random() > 0.2
+            this.last_shot >= this.cooldown + Math.random() * 1000
         ) {
             this.level.entities.push(new Bullet(
                 new Vector(this.pos.x + this.dir + 0.5, this.pos.y + 0.5), // pos

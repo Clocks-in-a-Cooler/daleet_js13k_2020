@@ -69,7 +69,7 @@ class Entity {
     }
     
     bounce() {
-        this.vertical_motion = this.bounciness;
+        this.vertical_motion = -this.bounciness;
     }
 }
 
