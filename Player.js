@@ -8,8 +8,7 @@ class Player extends Entity {
         this.jumped = false;
         this.fired  = false;
         
-        this.vertical_motion = 0;
-        this.double_jump     = true;
+        this.double_jump = true;
     }
     
     move_x(lapse) {

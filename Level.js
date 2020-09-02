@@ -85,6 +85,6 @@ var entity_keys = {
     "X": Crush_trap,
     "_": Spring_trap,
     "M": Monster,
-    "«": Shooting_trap,
-    "»": Shooting_trap,
+    "«": Shooting_trap, // "«" is ALT + [
+    "»": Shooting_trap, // "»" is ALT + ]
 }

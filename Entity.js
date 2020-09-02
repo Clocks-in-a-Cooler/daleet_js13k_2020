@@ -5,14 +5,14 @@ class Entity {
     constructor(pos, level, char) {
         this.pos    = pos;
         this.size   = new Vector(0, 0);
-        this.motion = new Vector(0, 0);
         
         this.level  = level;
         this.active = true;
         
         this.colour = "dodgerblue";
         
-        this.collideable = false;
+        this.collideable     = false;
+        this.vertical_motion = 0;
         
         // char can be used to encode extra data about the entity, such as the orientation of spike traps
     }
@@ -67,7 +67,13 @@ class Entity {
             collided: collision,
         }; // in case the caller wants to do something with the collideable entities
     }
+    
+    bounce() {
+        this.vertical_motion = this.bounciness;
+    }
 }
 
+// used by entities that simulate gravity -- Player, Monster, and certain Bullets
+Entity.prototype.bounciness        = 0.017;
 Entity.prototype.gravity           = 0.00003; // use for Player and Monster
 Entity.prototype.terminal_velocity = 0.03;
