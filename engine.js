@@ -1,6 +1,7 @@
 // handles animation, timing, key event handlers, and saving game data that's not the features
 
 var current_level = null;
+var game_progress = 0;
 
 // i've done this more times than i can count...
 var last_time = null;
@@ -30,11 +31,20 @@ function animate(time) {
 }
 
 function save_progress() {
-    // save the current level, however that works
+    sessionStorage.setItem("game progress", game_progress);
 }
 
 function load_progress() {
-    // load the saved level, however that works
+    game_progress = sessionStorage.getItem("game progress");
+}
+
+function next_level() {
+    game_progress++; // i wish life was as simple as life_progress++
+    current_level = new Level(GAME_LEVELS[game_progress]);
+}
+
+function restart_level() {
+    current_level = new Level(GAME_LEVELS[game_progress]);
 }
 
 var canvas   = document.querySelector("canvas");

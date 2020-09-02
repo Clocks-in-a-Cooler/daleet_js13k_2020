@@ -12,18 +12,17 @@ class Bullet extends Entity {
     
     cycle(lapse) {
         if (this.ignore_gravity) {
-            this.pos = this.pos.plus(this.motion.times(lapse));
+            var new_pos = this.pos.plus(this.motion.times(lapse));
         } else {
             this.vertical_motion += this.gravity * lapse;
             this.vertical_motion = Math.min(this.terminal_velocity, this.vertical_motion);
             
             var new_pos = this.pos.plus(new Vector(0, this.vertical_motion * lapse));
-            
-            var data = this.check_collision(new_pos);
-            
-            if (data.collided) {
-                this.active = false;
-            }
+        }
+        var data = this.check_collision(new_pos);
+        
+        if (data.collided) {
+            this.active = false;
         }
         this.destroy(); // failsafe, even though it probably doesn't work
     }

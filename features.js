@@ -20,7 +20,6 @@ function show_features() {
         if (features_deleted[feature]) {
             // error!
             send_error(`feature not found: "${feature}"`, 404);
-            notify(`your score is now ${error_score}`);
         } else {
             get_elt("files").appendChild(create_element("file", feature, () => {
                 selected = feature;
@@ -29,6 +28,8 @@ function show_features() {
             }));
         }
     });
+    
+    notify(`your score is ${error_score}`);
 }
 
 function save_deleted_features() {
@@ -50,6 +51,8 @@ function reset_features() {
     for_each_feature(feature => {
         features_deleted[feature] = false;
     });
+    
+    game_progress = 0; // sorry
 }
 
 get_elt("delete-button").addEventListener("click", () => {
