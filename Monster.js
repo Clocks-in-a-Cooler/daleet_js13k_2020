@@ -15,6 +15,8 @@ class Monster extends Entity {
         this.facing    = Math.random() > 0.5 ? -1 : 1;
         
         this.active = !features_deleted["monster"];
+        
+        this.next_shot = Math.random() * 2700 + 800;
     }
     
     cycle(lapse) {
@@ -25,7 +27,7 @@ class Monster extends Entity {
             }
         }
         
-        this.last_shot += lapse;
+        this.next_shot -= lapse;
         
         /*
             monster ai
@@ -33,13 +35,14 @@ class Monster extends Entity {
             - just move left and right, falling off ledges. when it bumps into something, it changes direction
             
             hard:
-            - if there is a wall, attempt to jump or turn around (random chance)
+            - if there is a wall, turn around
+            - 1% chance of jumping for each frame
+            - shoot at random intervals between 0.8 and 3.5 seconds
         */
         if (!this.dead) {
             this.vertical_motion += lapse * this.gravity;
             
             var new_pos_x = this.pos.plus(new Vector(this.speed * this.facing * lapse, 0));
-            var new_pos_y = this.pos.plus(new Vector(0, this.vertical_motion * lapse));
             
             var data_x = this.check_collision(new_pos_x);
             if (data_x.collided) {
@@ -49,25 +52,40 @@ class Monster extends Entity {
                     this.check_kill(e);
                 });
             }
-            var data_y = this.check_collision(new_pos_y);
-            if (data_y.collided) {
-                this.vertical_motion = 0;
-                data_y.entities.forEach(e => {
-                    e.collision(this);
-                    this.check_kill(e);
-                });
-            }
             
-            if (this.dead) return;
             if (this.type == "hard" && Math.random() < 0.01 && this.vertical_motion == 0) {
                 this.bounce();
             }
+            
+            if (this.type == "hard" && this.next_shot < 0) {
+                // shoot!
+                this.next_shot = Math.random() * 2700 + 800;
+                this.level.entities.push(new Bullet(
+                    new Vector(this.pos.x + this.facing + 0.5, this.pos.y + 0.5), // pos
+                    this.level, // level
+                    " ", // char (unused for bullets)
+                    this.colour, // colour
+                    new Vector(this.facing * 3, 0), // motion
+                    false // bouncing bullets
+                ));
+            }
+        }
+        
+        var new_pos_y = this.pos.plus(new Vector(0, this.vertical_motion * lapse));
+        
+        var data_y = this.check_collision(new_pos_y);
+        if (data_y.collided) {
+            this.vertical_motion = 0;
+            data_y.entities.forEach(e => {
+                e.collision(this);
+                this.check_kill(e);
+            });
         }
     }
     
     check_kill(entity) {
         if (
-            entity instanceof Bullet ||
+            (entity instanceof Bullet && entity.colour != this.colour) ||
             entity instanceof Crush_trap ||
             entity instanceof Spike_trap
         ) {
@@ -78,7 +96,7 @@ class Monster extends Entity {
             this.die();
         }
         
-        if (entity instanceof Player && ((entity.pos.y + entity.size.y) < (this.pos.y + this.size.y)) && this.level.status != "lost") {
+        if (entity instanceof Player && (entity.pos.y + entity.size.y) < (this.pos.y + this.size.y) && this.level.status != "lost") {
             this.die();
             entity.bounce();
         }

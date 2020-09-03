@@ -40,7 +40,9 @@ function load_progress() {
 
 function next_level() {
     game_progress++; // i wish life was as simple as life_progress++
-    current_level = new Level(GAME_LEVELS[game_progress]);
+    if (game_progress < GAME_LEVELS.length) {
+        current_level = new Level(GAME_LEVELS[game_progress]);
+    }
 }
 
 function restart_level() {

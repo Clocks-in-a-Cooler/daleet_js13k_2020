@@ -90,7 +90,6 @@ class Level {
         if (this.status == null) {
             this.status       = "lost";
             this.finish_delay = 2000;
-            console.log('lost');
         }
     }
 }

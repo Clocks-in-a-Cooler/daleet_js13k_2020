@@ -87,6 +87,8 @@ class Player extends Entity {
         super.draw(cxt);
         if (this.level.status == "won") {
             // ^_^
+            this.colour = "deepskyblue";
+            
             var start_coords = viewport.get_screen_coords(this.pos.plus(new Vector(0.1, 0.4)));
             cxt.beginPath();
             cxt.moveTo(start_coords.x, start_coords.y);
@@ -103,6 +105,8 @@ class Player extends Entity {
         
         if (this.level.status == "lost") {
             // x_x
+            this.colour = "lightsteelblue";
+            
             var start_coords = viewport.get_screen_coords(this.pos.plus(new Vector(0.1, 0.4)));
             cxt.beginPath();
             cxt.moveTo(start_coords.x, start_coords.y);
