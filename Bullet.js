@@ -10,7 +10,7 @@ class Bullet extends Entity {
         this.active  = !features_deleted["bullets"];
         this.bounces = 0;
         
-        this.ignore_gravity  = ignore_gravity && !features_deleted["physics"];
+        this.ignore_gravity  = ignore_gravity || features_deleted["physics"];
         this.vertical_motion = 0;
     }
     

@@ -71,6 +71,7 @@ class Monster extends Entity {
             }
         }
         
+        if (features_deleted["physics"]) return;
         var new_pos_y = this.pos.plus(new Vector(0, this.vertical_motion * lapse));
         
         var data_y = this.check_collision(new_pos_y);

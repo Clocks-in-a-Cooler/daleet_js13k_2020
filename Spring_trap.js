@@ -11,7 +11,6 @@ class Spring_trap extends Entity {
         
         this.bouncing        = false;
         this.bounce_progress = 0;
-        this.last_bounce     = 0;
         
         this.active = !features_deleted["spring trap"];
     }
@@ -31,16 +30,11 @@ class Spring_trap extends Entity {
             this.bouncing        = false;
             this.get_pos();
         }
-        this.last_bounce += lapse;
     }
     
     collision(other) {
         this.active = true;
-        
-        // to bounce: it must be at least 750 milliseconds since the start of last bounce
-        if (this.last_bounce >= 750) {
-            other.bounce();
-            this.bouncing = true;
-        }
+        if (!this.bouncing) other.bounce();
+        this.bouncing = true;
     }
 }
