@@ -1,1 +1,7 @@
 *.txt
+
+minified/
+
+minified.html
+styles_minified.css
+delete.js
