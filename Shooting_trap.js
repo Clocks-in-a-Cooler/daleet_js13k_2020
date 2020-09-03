@@ -12,6 +12,7 @@ class Shooting_trap extends Entity {
         }
         
         this.colour = "orangered";
+        this.active = !features_deleted["shooting trap"];
         
         this.collideable = true;
         this.last_shot   = 0;

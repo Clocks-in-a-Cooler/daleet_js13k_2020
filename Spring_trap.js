@@ -12,6 +12,8 @@ class Spring_trap extends Entity {
         this.bouncing        = false;
         this.bounce_progress = 0;
         this.last_bounce     = 0;
+        
+        this.active = !features_deleted["spring trap"];
     }
     
     get_pos() {

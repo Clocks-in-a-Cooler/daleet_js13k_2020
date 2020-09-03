@@ -13,6 +13,8 @@ class Monster extends Entity {
         this.dead      = false; // not yet...
         
         this.facing    = Math.random() > 0.5 ? -1 : 1;
+        
+        this.active = !features_deleted["monster"];
     }
     
     cycle(lapse) {

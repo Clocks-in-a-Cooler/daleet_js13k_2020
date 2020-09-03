@@ -23,6 +23,8 @@ class Spike_trap extends Entity {
         }
         
         this.collideable = true;
+        
+        this.active = !features_deleted["spike trap"];
     }
     
     cycle(lapse) {

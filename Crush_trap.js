@@ -3,8 +3,9 @@ class Crush_trap extends Entity {
         super(pos, level, char);
         this.last_move = 0;
         this.colour    = "silver";
-        this.size = new Vector(0.9, 0.9);
-        this.dir  = null;
+        this.size      = new Vector(0.9, 0.9);
+        this.dir       = null;
+        this.active    = !features_deleted["crush trap"];
     }
     
     cycle(lapse) {
