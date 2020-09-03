@@ -18,14 +18,7 @@ class Entity {
     }
     
     cycle(lapse) {
-        // this might have to be overriden in the Player class...
-        this.pos = this.pos.plus(this.motion.times(lapse));
-        this.update(lapse);
-    }
-    
-    update(lapse) {
-        // nothing...yet
-        // override in child classes
+        // overriden in child classes
     }
     
     destroy() {

@@ -6,7 +6,7 @@ class Spring_trap extends Entity {
         this.base_pos = this.pos.plus(new Vector(1, 1));
         this.get_pos();
         
-        this.collideable = !features_deleted["physics"];
+        // this.collideable = !features_deleted["physics"];
         this.colour      = "deeppink";
         
         this.bouncing        = false;
