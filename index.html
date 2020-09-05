@@ -44,7 +44,8 @@
             load_deleted_features();
             show_features();
             
-            current_level = new Level(GAME_LEVELS[0]);
+            load_progress();
+            current_level = new Level(GAME_LEVELS[game_progress]);
             
             animate(0);
         </script>

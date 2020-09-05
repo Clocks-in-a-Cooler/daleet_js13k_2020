@@ -35,7 +35,7 @@ function save_progress() {
 }
 
 function load_progress() {
-    game_progress = sessionStorage.getItem("game progress");
+    game_progress = sessionStorage.getItem("game progress") || 0;
 }
 
 function next_level() {
@@ -43,6 +43,7 @@ function next_level() {
     if (game_progress < GAME_LEVELS.length) {
         current_level = new Level(GAME_LEVELS[game_progress]);
     }
+    save_progress();
 }
 
 function restart_level() {
@@ -97,19 +98,15 @@ var viewport = {
                     // bloatin' the game beyond its limits
                     context.strokeStyle = "black", context.lineWidth = 2;
                     if (!current_level.get_tile(new Vector(x, y - 1))) {
-                        context.beginPath();
                         context.strokeRect(screen_coords.x, screen_coords.y, scale, 0);
                     }
                     if (!current_level.get_tile(new Vector(x, y + 1))) {
-                        context.beginPath();
                         context.strokeRect(screen_coords.x, screen_coords.y + scale, scale, 0);
                     }
                     if (!current_level.get_tile(new Vector(x - 1, y))) {
-                        context.beginPath();
                         context.strokeRect(screen_coords.x, screen_coords.y, 0, scale);
                     }
                     if (!current_level.get_tile(new Vector(x + 1, y))) {
-                        context.beginPath();
                         context.strokeRect(screen_coords.x + scale, screen_coords.y, 0, scale);
                     }
                 }
