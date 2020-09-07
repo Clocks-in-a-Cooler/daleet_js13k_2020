@@ -71,7 +71,7 @@ class Monster extends Entity {
             }
         }
         
-        if (features_deleted["physics"]) return;
+        if (features_deleted["gravity"]) return;
         var new_pos_y = this.pos.plus(new Vector(0, this.vertical_motion * lapse));
         
         var data_y = this.check_collision(new_pos_y);
@@ -99,7 +99,7 @@ class Monster extends Entity {
         
         if (entity instanceof Player && (entity.pos.y + entity.size.y) < (this.pos.y + this.size.y) && this.level.status != "lost") {
             this.die();
-            entity.bounce();
+            entity.vertical_motion *= -1;
         }
     }
     

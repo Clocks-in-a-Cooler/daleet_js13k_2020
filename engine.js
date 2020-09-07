@@ -18,7 +18,7 @@ function animate(time) {
         return;
     }
     
-    var max_step = features_deleted["physics"] ? lapse : 50; // BREAK THE GAME
+    var max_step = 50;
     
     while (lapse > 0) {
         var step = Math.min(max_step, lapse);
@@ -42,6 +42,16 @@ function next_level() {
     game_progress++; // i wish life was as simple as life_progress++
     if (game_progress < GAME_LEVELS.length) {
         current_level = new Level(GAME_LEVELS[game_progress]);
+    } else {
+        notify("You've won!");
+        setTimeout(() => {
+            notify(`Your score is ${error_score}`);
+        }, 2000);
+        if (error_score > 2020) {
+            setTimeout(() => {
+                notify("Your score could have been lower. There were some features you could have kept.");
+            }, 4000);
+        }
     }
     save_progress();
 }
@@ -180,5 +190,22 @@ addEventListener("keyup", evt => {
     }
 });
 
-var did_tutorial  = false;
+if (!sessionStorage.getItem("delete: tutorial 1")) {
+    tell({
+        "Hey!": 0,
+        "Before we begin, let's go through your abilities first.": 2000,
+        "You can move left and right with the left and right arrow keys.": 4000,
+        "You can jump with the up arrow.": 6000,
+        "You can hug a wall and jump up it.": 8000,
+        "You can jump in midair, only once. This ability reloads when you touch the ground.": 10000,
+        "You can die. In a lot of ways.": 15000,
+        "Okay now. Take a deep breath.": 17000,
+        "Every level is impossible, unless you delete just one feature.": 19000,
+        "You should only delete one feature at a time.": 22000,
+        "Simply select the feature, click delete, then reload the page.": 25000,
+        "If you think you deleted the wrong feature, you can reset the whole game.": 28000,
+    });
+    
+    sessionStorage.setItem("delete: tutorial 1", "done");
+}
 var current_level = 0;

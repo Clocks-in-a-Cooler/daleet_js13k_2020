@@ -75,10 +75,14 @@ class Player extends Entity {
     cycle(lapse) {
         this.move_x(lapse);
         
-        if (features_deleted["physics"]) {
+        if (features_deleted["gravity"]) {
             this.move_y_no_physics(lapse);
         } else {
             this.move_y(lapse);
+        }
+        
+        if (this.pos.y > (this.level.height + 50)) {
+            this.level.lose();
         }
     }
     

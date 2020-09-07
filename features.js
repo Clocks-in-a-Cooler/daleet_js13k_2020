@@ -3,7 +3,7 @@ var features_deleted = {
     "bullets": false,
     "crush trap": false,
     "monster": false,
-    "physics": false,
+    "gravity": false,
     "shooting trap": false,
     "spike trap": false,
     "spring trap": false,
@@ -35,7 +35,7 @@ function show_features() {
 function save_deleted_features() {
     // unfortunately, doesn't do what you hope it does. those features are GONE
     for_each_feature(feature => {
-        sessionStorage.setItem(feature, features_deleted[feature] ? "deleted" : "not deleted"); // ...yeah
+        sessionStorage.setItem("delete: " + feature, features_deleted[feature] ? "deleted" : "not deleted"); // ...yeah
     });
     
     notify("reload the page to effect changes...");
@@ -43,7 +43,7 @@ function save_deleted_features() {
 
 function load_deleted_features() {
     for_each_feature(feature => {
-        features_deleted[feature] = sessionStorage.getItem(feature) == "deleted";
+        features_deleted[feature] = sessionStorage.getItem("delete: " + feature) == "deleted";
     });
 }
 
@@ -63,4 +63,5 @@ get_elt("delete-button").addEventListener("click", () => {
 get_elt("reset-button").addEventListener("click", () => {
     reset_features();
     save_deleted_features();
+    save_progress();
 });

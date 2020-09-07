@@ -6,6 +6,8 @@ class Crush_trap extends Entity {
         this.size      = new Vector(0.9, 0.9);
         this.dir       = null;
         this.active    = !features_deleted["crush trap"];
+        
+        this.collideable = true;
     }
     
     cycle(lapse) {

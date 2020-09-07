@@ -14,3 +14,9 @@ function notify(message) {
         }
     });
 }
+
+function tell(messages) {
+    Object.keys(messages).forEach(message => {
+        setTimeout(() => { notify(message); }, messages[message]);
+    });
+}

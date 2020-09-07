@@ -55,11 +55,8 @@ class Level {
         var left_bound = Math.floor(pos.x), right_bound  = Math.ceil(pos.x + size.x);
         var top_bound  = Math.floor(pos.y), bottom_bound = Math.ceil(pos.y + size.y);
         
-        if (left_bound < 0 || right_bound > this.width || top_bound < 0 || bottom_bound > this.height) {
-            return "wall";
-        }
-        
         for (var y = top_bound; y < bottom_bound; y++) {
+            if (this.grid[y] == undefined) continue;
             for (var x = left_bound; x < right_bound; x++) {
                 var tile = this.grid[y][x];
                 if (tile) return tile;
