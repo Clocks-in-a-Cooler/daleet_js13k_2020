@@ -31,18 +31,20 @@ function animate(time) {
 }
 
 function save_progress() {
-    sessionStorage.setItem("game progress", game_progress);
+    sessionStorage.setItem("delete: game progress", game_progress);
 }
 
 function load_progress() {
-    game_progress = sessionStorage.getItem("game progress") || 0;
+    game_progress = sessionStorage.getItem("delete: game progress") || 0;
 }
+
+var notify_win = false;
 
 function next_level() {
     game_progress++; // i wish life was as simple as life_progress++
     if (game_progress < GAME_LEVELS.length) {
         current_level = new Level(GAME_LEVELS[game_progress]);
-    } else {
+    } else if (!notify_win){
         notify("You've won!");
         setTimeout(() => {
             notify(`Your score is ${error_score}`);
@@ -52,6 +54,7 @@ function next_level() {
                 notify("Your score could have been lower. There were some features you could have kept.");
             }, 4000);
         }
+        notify_win = true;
     }
     
     if (game_progress == 1) {
