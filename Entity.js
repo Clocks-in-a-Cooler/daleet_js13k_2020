@@ -22,8 +22,8 @@ class Entity {
     }
     
     destroy() {
-        if (this.pos.x + this.size.x < 0 || this.pos.x > this.level.width ||
-            this.pos.y + this.size.y < 0 || this.pos.y > this.level.height
+        if (this.pos.x + this.size.x < -20 || this.pos.x > this.level.width + 20 ||
+            this.pos.y + this.size.y < -20 || this.pos.y > this.level.height + 20
         ) {
             this.active = false;
         }

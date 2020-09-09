@@ -53,6 +53,18 @@ function next_level() {
             }, 4000);
         }
     }
+    
+    if (game_progress == 1) {
+        // second level, let's tell the player that monsters are vile pieces of garbage to be stomped on
+        if (!sessionStorage.getItem("delete: tutorial 2")) {
+            tell({
+                "Oh! I forgot to remind you.": 0,
+                "You can stomp on monsters' heads.": 2000,
+                "As long as you touch them from above.": 4000,
+            });
+            sessionStorage.setItem("delete: tutorial 2", "completed");
+        }
+    }
     save_progress();
 }
 
